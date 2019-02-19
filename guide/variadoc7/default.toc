@@ -1,0 +1,2 @@
+introduction:guide\variadoc7\introduction.md:Introduction
+what-is-new:guide\variadoc7\what-is-new:What is new
