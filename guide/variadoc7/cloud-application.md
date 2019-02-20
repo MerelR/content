@@ -68,7 +68,7 @@ The table below summarizes the tiers and anonymous use:
 
 |            |projects |pages/month  |storage|external storage|web api|teams|
 |------------|---------|-------------|-------|----------------|-------|-----|
-|Enterprise. |unlimited|             |5+5 GB |unlimited       |Yes    |Yes  |
+|Enterprise  |unlimited|             |5+5 GB |unlimited       |Yes    |Yes  |
 |Professional|unlimited|             |5 GB   |unlimited       |Yes    |No   |
 |Free        |1        |100          |100 MB |unlimited       |No     |No   |
 |Anonymous   |1        |             |10 MB  |No              |No     |No   |
