@@ -64,6 +64,13 @@ All previous tiers require you to register an account. It is also possible to us
 - access to cloud storage cannot be configured
 - storage is limited to *Z* Mb
 
-The table below summarizes the tiers and anonynous use:
+The table below summarizes the tiers and anonymous use:
+
+|            |projects |pages|storage|external storage|web api|teams|
+|------------|---------|-----|-------|----------------|-----|-------|
+|Enterprise. |unlimited|     |       |unlimited       |Yes  |Yes    |
+|Professional|unlimited|     |       |unlimited       |Yes  |No     |
+|Free        |1        |     |       |unlimited       |No   |No     |
+|Anonymous.  |1        |     |       |No              |No   |No     |
 
 
