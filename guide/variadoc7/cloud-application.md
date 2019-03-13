@@ -26,7 +26,7 @@ Hit the Merge button from the toolbar. You will find the generated documents ins
 ## Online disk
 Each variaDoc account has an online disk. This disk is accessible from every project inside your account and files can be shared among online variaDoc projects. In fact, every project is a .vd file on this disk. How you organize your folders and files is entirely up to you.
 
-Files on your online disk are referenced like this: `~/samples/authors/template.pdf`.
+Files on your online disk are referenced like this: `@/samples/authors/template.pdf`.
 
 ### Backup
 You can download a copy of your online disk at any moment. You may also schedule a regular backup.
@@ -59,7 +59,7 @@ In addition to the Professional tier, the Enterprise tier introduces *teams*. A 
 
 The account that is on the Enterprise tier manages the team and access to the shared disk.
 
-Files on the team disk are referenced like this: `~~/samples/authors/template.pdf`.
+Files on the team disk are referenced like this: `@@/samples/authors/template.pdf`.
 
 ### Anynomous
 All previous tiers require you to register an account. It is also possible to use the cloud application anonymously. In this case a temporary storage area will be created for the duration of your session. Limitations:
