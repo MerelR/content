@@ -1,2 +1,4 @@
 introduction:guide\variadoc7\introduction.md:Introduction
 what-is-new:guide\variadoc7\what-is-new:What is new
+cloud-application:guide\variadoc7\cloud-application.md:Cloud application
+wep-api:guide\variadoc7\web-api:Web API
