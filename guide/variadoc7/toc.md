@@ -1,0 +1,4 @@
+- [Introduction](guide\variadoc7\introduction.md)
+- [What is new](guide\variadoc7\what-is-new.md)
+- [Cloud application](guide\variadoc7\cloud-application.md)
+- [Web API](guide\variadoc7\web-api.md)
