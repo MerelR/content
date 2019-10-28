@@ -1,0 +1,32 @@
+This chapter outlines variaDoc's core concepts and how to use them.
+
+# Merge project
+
+One of the biggest features of variaDoc is the ability to easily merge projects with a few steps::
+Add a database with all needed information to your project.
+Add a document you want to work with. This can be an existing PDF, or a new document.
+In the properties of the document, indicate how you want to export the final result.
+Merge the needed data from the database with the corresponding fields in the document(s).
+Now you can save the project and use it as often as needed.
+Running a merge project
+You can run a created merge project in one of the following ways:
+Interactively
+Open the merge project in variaDoc and click on Merge in the toolbar. variaDoc will merge the project, create the resulting documents and list them in the log at the bottom of variaDoc. Double click on documents to open them.
+As a web service
+To run a merge as an Microsoft IIS web service, copy the merge project and all related resources (PDF files, data sources, images etc) to your website and publish an URL that points to that project file.
+See the Webservice chapter for more information.
+From your own .NET application
+Use the variaDoc's Reports assembly.
+See the .NET assembly chapter for more information.
+Unattended (batch)
+Pass the path of the merge project as an argument to the command line application to run it unattended.
+See the Command line application chapter for more information.
+Project script
+For larger projects, the number of nodes that specify what needs to be done may become too large to manage efficiently.
+For easy management of these kinds of merge projects, specify your nodes using project script.
+This is a single node with an XML-esque notation.
+This sample describes a single Section node with a text paragraph in it.
+<pm:section>
+This is a simple piece of text.
+And another line.
+</pm:section>
