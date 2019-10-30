@@ -32,7 +32,7 @@ This is a simple piece of text.
 And another line.
 </pm:section>
 
-# Fields
+# [Fields](#concepts-fields)
 
 A great number of PDF forms contains fields where data can be filled in.
 There are two sorts of fields: flattened and interactive. Flattened fields are a static representation of their content. They are no longer editable.
@@ -180,6 +180,7 @@ Every entry box in variaDoc that lets you enter an expression has a preview butt
                
 ## Data preferences
 
+See [fields](concepts-fields)
 
                
                
