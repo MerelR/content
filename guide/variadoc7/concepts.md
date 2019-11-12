@@ -126,20 +126,14 @@ Literal text
 Data references
 Embedded VB.NET expressions.
 To distinguish between these parts, some special characters are used.
-|--------------|------------------------------------------------------------|-------------------------|
-|**Characters**|**Description**                                             |**Example**              |
-|--------------|------------------------------------------------------------|-------------------------|
-| $[ ]         | A data reference.                                          |$[customers:first]       |
-|              | See Data reference.                                        |                         |
-| -------------|------------------------------------------------------------|-------------------------|
-| :            | If inside a data reference, separates the data source name |$[customers:first]       |
-|              | from the data query.                                       |                         |
-|--------------|------------------------------------------------------------|-------------------------|
-| |            | If inside a data reference, separates the query from the   |$[customers:first|Upper] |
-|              | inline format specifier.                                   |                         |
-|--------------|------------------------------------------------------------|-------------------------|
-| { }          | A VB.NET expression.                                       |{ DateTime.Now }         |
-|--------------|------------------------------------------------------------|-------------------------|
+
+**Characters** | **Description** | **Example**
+--- | :---: | ---:
+$[ ] | A data reference. See Data reference. | $[customers:first]
+: | If inside a data reference, separates the data source name from the data query. | $[customers:first]
+| | If inside a data reference, separates the query from the inline format specifier. | $[customers:first|Upper]
+{ } | A VB.NET expression. | { DateTime.Now }
+
 Every character that is not part of a data reference or an embedded expression is literal text.
 You can combine all kinds of sub-expressions in a single expression.
 For example:
@@ -153,17 +147,13 @@ Any embedded VB.NET expressions are evaluated and replaced with their result.
 The resulting value is used by variaDoc to fill form fields or set properties.
 **Syntax coloring**
 While typing expressions, syntax coloring will help you identify how the different parts of the expression are interpreted by variaDoc. The following shows the color scheme.
-|---------------------|------------------------------------------------------------------|
-|**Color sample**     |**Description**                                                   |
-|---------------------|------------------------------------------------------------------|
-|“static text”        |Static text in SQL expressions ( red )                            |
-|---------------------|------------------------------------------------------------------|
-|SELECT               |SQL keyword ( blue ), VB keyword                                  |
-|---------------------|------------------------------------------------------------------|
-|{ String.Format() }  |Embedded VB.NET expression ( accolades marked yellow )            |
-|---------------------|------------------------------------------------------------------|
-|$[mydata:field]      |Data reference ( dark red / dark yellow with light yellow back )  |
-|---------------------|------------------------------------------------------------------|
+
+**Color sample** | **Description**
+--- | :---:
+“static text” | Static text in SQL expressions ( red )
+SELECT | SQL keyword ( blue ), VB keyword
+{ String.Format() } | Embedded VB.NET expression ( accolades marked yellow )
+$[mydata:field] | Data reference ( dark red / dark yellow with light yellow back )
 
 
 **Type assist**
@@ -180,8 +170,184 @@ Every entry box in variaDoc that lets you enter an expression has a preview butt
                
 ## Data preferences
 
-See [fields](concepts-fields)
+A data reference is a reference to data in a data source. Once you run a merge, it will be replaced with the current data from the data source.
+In its simplest form, it consists of 2 parts:
+1. The data source name
+2. A query
+These parts are separated by a : (colon).
+Example 1:
+$[customers:name]
+This data reference refers to the column **name** in a data source named **customers**. In this case, the query part is a column name.
+This only works for non-XML data sources. For XML based data sources, the query part is an XPath expression.
+Example 2:
+$[authors:name/@name]
+This data reference will return the **name** attribute of the **name** element in the current node set of a (XML) data source named **authors**.
+$picture$ Data references that cannot be resolved result in an error.
+**Using a sub-string**
+If you want to use only a small part of the value resulting from a data reference, you can use the inline sub-string operator.
+The sub-string operator directly follows the query. It consists of two number surrounded by '(' and ')' and separated by a comma ','. The first number indicates the start index in the value. The second number indicates the length of the sub-string. The start index starts at zero (0).
+Example 3:
+$[customer:name(2,1)]
+This examples  takes a sub-string of the name column. The sub-string is 1 character long and starts at the third character of the name (index 2).
+If the name was originally "Theo", this example will return "e".
+If the length of the sub-string is greater that what is available, an empty string is returned.
+**Data formatting**
+Data references can be formatted according to an inline format specifier.
+The inline format specifier is separated from the query by a | (vertical bar).
+Example 4:
+$[customers:name|Upper]
+This data refers to the column **name** in a data source called **customers**. The resulting data is converted to upper case.
+**Data type conversion**
+The type of the current data to which a data reference evaluates depends on the data source. Typically a number column results in number values, but in some cases there is a need to convert from one data type to another. A typical example is an XML data source. All values from an XML data source will be of the type string. If you have a number in your XML data that you want to calculate with, it is necessary to convert that data to a number first.
+Data references can be converted to a specific type using an inline data conversion.
+The inline conversion surrounds the data source name and the query like this:
+$[CInt(data source name:query)]
+Where **CInt** is one of the possible conversions. In this case the data is converted to a 32-bit signed integer.
+It is also possible to combine inline conversion and inline formatting in one data reference like this:
+$[CDbl(order:price)|#.##0]
+In this example the value of the **price** column from the **order** data source is first converted to a 64-bit floating point number and then formatted using the **#.##0** format specifier.
 
+### Inline format specifiers
+
+Data from a data source can be formatted using an inline format specifier.
+Format specifiers can be standard or custom. With custom format specifiers you can e.g. specify your own currency or date format.
+**Standard string format specifiers**
+
+**Specifier** | **Description** | **Example**
+--- | :---: | ---:
+Upper | Convert to upper case | $[Addresses:City|Upper]
+Lower | Convert to lower case | $[Addresses:City|Lower]
+EscaleSQL | Escape all SQL special characters, for use in SQL expressions. | SELECT * FROM Table WHERE Field='$[Data:Value|EscapeSQL]'
+EscapeXHTML | Escale all XHTML special characters, for use in XHTML content. | <b>$[Users:Name|EscapeXHTML]</b>
+Trim | Remove all leading and trailing whitespace. | $[FIELD:Name|Trim]
+TrimStart | Remove all leading whitespace. | $[FIELD:Name|TrimStart]
+TrimEnd | Remove all trailing whitespace. | $[FIELD:Name|TrimEnd]
+Newline | Append a newline separator if the value is not empty. | { $[Users:Addres1|Newline] + $[Users:Address2|Newline] }
+
+**Standard number format specifiers**
+
+**Specifier** | **Description** | **Example (all values are 1805,4573)**
+--- | :---: | ---:
+C | Standard currency format | $[data:value|C] ð $1,805.45
+N | Standard number format | $[data:value|N] ð 1,805.46
+F | Standard fixed point format | $[data:value|F] ð 1805.46
+P | Standard percentage format | [data:value|P] ð 180545.73%
+To set the number of digits after the decimal separator, post fix the letter with a number.
+For example **F3** will format a fixed point number with 3 decimals.
+Standard date and time format specifiers
+Specifier
+Description
+Example (all values are August 24, 2004 2:12:36 PM)
+D
+Standard full date
+$[data:value|D] ð Tuesday, August 24, 2004
+d
+Standard short date
+$[data:value|d] ð 8/24/2004
+T
+Standard full time
+$[data:value|T] ð 2:12:36 PM
+t
+Standard short time
+$[data:value|t] ð 2.12 PM
+m
+Month and day
+$[data:value|m] ð August 24
+Custom number format specifiers
+Specifier
+Description
+Example (all values are 42.000)
+0
+Zero placeholder. If the value being formatted has a digit in the position where the 0 appears in the format string, then that digit is copied to the result string, if not a zero is inserted.
+$[data:value|0] ð 42000
+#
+Digit placeholder. If the value being formatted has a digit in the position where the # appears in the format string, then that digit is copied to the result string. Otherwise, nothing is stored in that position in the result string. Note that this specifier never displays the 0 character if it is not a significant digit, even if 0 is the only digit in the string.
+$[data:value|#####0] ð 42000
+.
+Decimal point. The first . character in the format string determines the location of the decimal separator in the formatted value; any additional . characters are ignored. The actual character used as the decimal separator is determined by the computers regional settings.
+$[data:value|0.00] ð 42000.00
+,
+Thousand separator and number scaling. If the format string contains a , character between two digit placeholders (0 or #) and to the left of the decimal point , then the output will have thousand separators inserted between each group of three digits to the left of the decimal separator. The actual character used as the decimal separator in the result string is determined by the computers regional settings.
+$[data:value|#,##0] ð 42,000
+%
+Percentage placeholder. The presence of a % character in a format string causes a number to be multiplied by 100 before it is formatted. The appropriate symbol is inserted in the number itself at the location where the % appears in the format string. The percent character used is dependent on the computers regional settings.
+$[data:value|0%] ð 4200000%
+;
+Section separator. ; is used to separate sections for positive, negative, and zero numbers in the format string.
+Custom date format specifiers
+Specifier
+Description
+Range
+d
+Day of the month
+1 - 31
+dd
+Day of the month with leading zero
+01 - 31
+ddd
+Abbreviated name of the day of the week
+mon, tue, wed ...
+dddd
+Full name of the day of the week
+monday, tuesday ...
+M
+Numeric month
+1 - 12
+MM
+Numeric month with leading zero
+01 - 12
+MMM
+Abbreviated name of the month
+Jan, Feb, Mar ...
+MMMM
+Full name of the month
+January, february...
+y
+Year without century
+1 - 99
+yy
+Year without century with leading zero
+01 - 99
+yyyy
+Year with century
+1999, 2000, 2001 ...
+Custom time format specifiers
+Specifier
+Description
+Range
+h
+Hour in a 12-hour clock
+0 - 12
+hh
+Hour in a 12-hour clock with leading zero
+00 - 12
+H
+Hour in a 24-hour clock
+0 - 23
+HH
+Hour in a 24-hour clock with leading zero
+00 - 23
+m
+Minutes
+0 - 59
+mm
+Minutes with leading zero
+00 - 59
+S
+Seconds
+0 - 59
+ss
+Seconds with leading zero
+00 - 59
+tt
+AM/PM designator
+AM, PM
+zz
+Time zone offset (in hours) with leading zero
+00, +02, -06 ...
+zzz
+Full time zone offset (hours and minutes) with leading zeros
++02:00 , -06:00 ...
                
                
                
