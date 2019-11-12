@@ -234,120 +234,101 @@ F | Standard fixed point format | $[data:value|F] ð 1805.46
 P | Standard percentage format | [data:value|P] ð 180545.73%
 To set the number of digits after the decimal separator, post fix the letter with a number.
 For example **F3** will format a fixed point number with 3 decimals.
-Standard date and time format specifiers
-Specifier
-Description
-Example (all values are August 24, 2004 2:12:36 PM)
-D
-Standard full date
-$[data:value|D] ð Tuesday, August 24, 2004
-d
-Standard short date
-$[data:value|d] ð 8/24/2004
-T
-Standard full time
-$[data:value|T] ð 2:12:36 PM
-t
-Standard short time
-$[data:value|t] ð 2.12 PM
-m
-Month and day
-$[data:value|m] ð August 24
-Custom number format specifiers
-Specifier
-Description
-Example (all values are 42.000)
-0
-Zero placeholder. If the value being formatted has a digit in the position where the 0 appears in the format string, then that digit is copied to the result string, if not a zero is inserted.
-$[data:value|0] ð 42000
-#
-Digit placeholder. If the value being formatted has a digit in the position where the # appears in the format string, then that digit is copied to the result string. Otherwise, nothing is stored in that position in the result string. Note that this specifier never displays the 0 character if it is not a significant digit, even if 0 is the only digit in the string.
-$[data:value|#####0] ð 42000
-.
-Decimal point. The first . character in the format string determines the location of the decimal separator in the formatted value; any additional . characters are ignored. The actual character used as the decimal separator is determined by the computers regional settings.
-$[data:value|0.00] ð 42000.00
-,
-Thousand separator and number scaling. If the format string contains a , character between two digit placeholders (0 or #) and to the left of the decimal point , then the output will have thousand separators inserted between each group of three digits to the left of the decimal separator. The actual character used as the decimal separator in the result string is determined by the computers regional settings.
-$[data:value|#,##0] ð 42,000
-%
-Percentage placeholder. The presence of a % character in a format string causes a number to be multiplied by 100 before it is formatted. The appropriate symbol is inserted in the number itself at the location where the % appears in the format string. The percent character used is dependent on the computers regional settings.
-$[data:value|0%] ð 4200000%
-;
-Section separator. ; is used to separate sections for positive, negative, and zero numbers in the format string.
-Custom date format specifiers
-Specifier
-Description
-Range
-d
-Day of the month
-1 - 31
-dd
-Day of the month with leading zero
-01 - 31
-ddd
-Abbreviated name of the day of the week
-mon, tue, wed ...
-dddd
-Full name of the day of the week
-monday, tuesday ...
-M
-Numeric month
-1 - 12
-MM
-Numeric month with leading zero
-01 - 12
-MMM
-Abbreviated name of the month
-Jan, Feb, Mar ...
-MMMM
-Full name of the month
-January, february...
-y
-Year without century
-1 - 99
-yy
-Year without century with leading zero
-01 - 99
-yyyy
-Year with century
-1999, 2000, 2001 ...
-Custom time format specifiers
-Specifier
-Description
-Range
-h
-Hour in a 12-hour clock
-0 - 12
-hh
-Hour in a 12-hour clock with leading zero
-00 - 12
-H
-Hour in a 24-hour clock
-0 - 23
-HH
-Hour in a 24-hour clock with leading zero
-00 - 23
-m
-Minutes
-0 - 59
-mm
-Minutes with leading zero
-00 - 59
-S
-Seconds
-0 - 59
-ss
-Seconds with leading zero
-00 - 59
-tt
-AM/PM designator
-AM, PM
-zz
-Time zone offset (in hours) with leading zero
-00, +02, -06 ...
-zzz
-Full time zone offset (hours and minutes) with leading zeros
-+02:00 , -06:00 ...
+**Standard date and time format specifiers**
+
+**Specifier** | **Description** | **Example (all values are August 24, 2004 2:12:36 PM)**
+--- | :---: | ---:
+D | Standard full date | $[data:value|D] ð Tuesday, August 24, 2004
+d | Standard short date | $[data:value|d] ð 8/24/2004
+T | Standard full time | $[data:value|T] ð 2:12:36 PM
+t | Standard short time | $[data:value|t] ð 2.12 PM
+m | Month and day | $[data:value|m] ð August 24
+
+**Custom number format specifiers**
+
+**Specifier** | **Description** | **Example (all values are 42.000)**
+0 | Zero placeholder. If the value being formatted has a digit in the position where the 0 appears in the format string, then that digit is copied to the result string, if not a zero is inserted. | $[data:value|0] ð 42000
+**#** | Digit placeholder. If the value being formatted has a digit in the position where the # appears in the format string, then that digit is copied to the result string. Otherwise, nothing is stored in that position in the result string. Note that this specifier never displays the 0 character if it is not a significant digit, even if 0 is the only digit in the string. | $[data:value|#####0] ð 42000
+. | Decimal point. The first . character in the format string determines the location of the decimal separator in the formatted value; any additional . characters are ignored. The actual character used as the decimal separator is determined by the computers regional settings. | $[data:value|0.00] ð 42000.00
+, | Thousand separator and number scaling. If the format string contains a , character between two digit placeholders (0 or #) and to the left of the decimal point , then the output will have thousand separators inserted between each group of three digits to the left of the decimal separator. The actual character used as the decimal separator in the result string is determined by the computers regional settings. | $[data:value|#,##0] ð 42,000
+% | Percentage placeholder. The presence of a % character in a format string causes a number to be multiplied by 100 before it is formatted. The appropriate symbol is inserted in the number itself at the location where the % appears in the format string. The percent character used is dependent on the computers regional settings. | $[data:value|0%] ð 4200000%
+; | Section separator. ; is used to separate sections for positive, negative, and zero numbers in the format string.
+
+**Custom date format specifiers**
+
+**Specifier** | **Description** | **Range**
+--- | :---: | ---:
+d | Day of the month | 1 - 31
+dd | Day of the month with leading zero | 01 - 31
+ddd | Abbreviated name of the day of the week | mon, tue, wed ...
+dddd | Full name of the day of the week | monday, tuesday ...
+M | Numeric month | 1 - 12
+MM | Numeric month with leading zero | 01 - 12
+MMM | Abbreviated name of the month | Jan, Feb, Mar ...
+MMMM | Full name of the month | January, february...
+y | Year without century | 1 - 99
+yy | Year without century with leading zero | 01 - 99
+yyyy | Year with century | 1999, 2000, 2001 ...
+
+**Custom time format specifiers**
+
+**Specifier** | **Description** | **Range**
+--- | :---: | ---:
+h | Hour in a 12-hour clock | 0 - 12
+hh | Hour in a 12-hour clock with leading zero | 00 - 12
+H | Hour in a 24-hour clock | 0 - 23
+HH | Hour in a 24-hour clock with leading zero | 00 - 23
+m | Minutes | 0 - 59
+mm | Minutes with leading zero | 00 - 59
+S | Seconds | 0 - 59
+ss | Seconds with leading zero | 00 - 59
+tt | AM/PM designator | AM, PM
+zz | Time zone offset (in hours) with leading zero | 00, +02, -06 ...
+zzz | Full time zone offset (hours and minutes) with leading zeros | +02:00 , -06:00 ...
+
+### Inline datatype conversion
+
+Sometimes it is necessary to convert data to a specific type in order to avoid possible errors during operation. In such cases you can use the inline conversion functions below.
+Data from XML data sources and merge parameters is always text (the type is string). This means that you may have to convert it into a number before you can use it in a calculation.
+
+**Conversion function** | **Description** | **Default value** | **Example**
+--- | :---: | ---: | ---:
+CBool | Converts the data into a boolean (true / false) | false | $[CBool(Data source:Option1)]
+CByte | Converts the data into a byte, an unsigned number from 0 to 255. | 0 | $[CByte(Data:SmallNumber)]
+CChar | Converts the data into a character. | space | $[CChar(Data:Text)]
+CDate | Converts the data into a date/time object. | Now | $[CDate(Data:StartDate)|MM dd yyyy]
+CDbl | Converts the data into a double precision floating point value. | 0.0 | $[CDbl(products:price)] + 5.0
+CDec | Converts the data to a decimal value. | Decimal values are fixed point numbers, useful for calculation monetary values. | 0 | $[products:price] * $[CDec(Margin)]
+CInt | Converts the data into a 32-bit signed integer. | 0 | $[CInt(order:quantity)]
+CLng | Converts the data into a 64-bit signed integer. | 0 | $[CLng(product:serial)]
+CShort | Converts the data into a 16-bit signed integer. | 0 | $[CShort(order:quantity)]
+CSng | Converts the data into a single precision floating point value. | 0.0 | $[CSng(order:price)]
+CStr | Converts the data to a string | empty string | $[CStr(Data:Number)]
+
+**Type checking functions**
+The following conversion function checks if data can be converted to a certain type.
+All functions return **true** or **false.**
+
+**Conversion function** | **Description** | **Default value** | **Example**
+--- | :---: | ---: | ---:
+IsBool | Can the data be converted into a boolean. | n/a | $[IsBool(Data source:Option1)]
+IsByte | Can the data be converted into a byte. | n/a | $[IsByte(Data:SmallNumber)]
+IsChar | Can the data be converted into a character. | n/a | $[IsChar(Data:Text)]
+IsDate | Can the data be converted into a date/time object. | n/a | $[IsDate(Data:StartDate)]
+IsDbl | Can the data be converted into a double precision floating point value. | n/a | $[IsDbl(products:price)]
+IsCDec | Can the data be converted to a decimal value. | n/a | $[IsDec(Margin)]
+IsInt | Can the data be converted into a 32-bit signed integer. | n/a | $[IsInt(order:quantity)]
+IsLng | Can the data be converted into a 64-bit signed integer. | n/a | $[IsLng(product:serial)]
+IsShort | Can the data be converted into a 16-bit signed integer. | n/a | $[IsShort(order:quantity)]
+IsSng | Can the data be converted into a single precision floating point value. | n/a | $[IsSng(order:price)]
+IsStr | Can the data be converted to a string. | n/a | $[IsStr(Data:Number)]
+
+**Conversion error & default values**
+If a conversion fails because the data cannot be converted, a default value is used.
+You can manually specify this value or use the built-in default ones.
+To specify your own default value, write it after the query in the following format:
+$[CInt(Charges:Allowance, 22)]
+If the **Allowance** data cannot be converted to an integer, the value **22** is used.
                
                
                
